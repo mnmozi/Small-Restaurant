@@ -15,10 +15,12 @@ export default () => {
       statusCode: appError.statusCode,
       status: appError.status,
       message: appError.message,
+      validationErrors: appError.validationErrors,
     });
     res.status(appError.statusCode).json({
       status: appError.status,
       message: appError.message,
+      validationErrors: appError.validationErrors,
     });
   };
 };
