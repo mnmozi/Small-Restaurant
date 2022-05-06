@@ -39,7 +39,8 @@ export const find = catchAsync(
         if (getListConfig.offset === 0) {
             resourcesCount = await UserModel.count();
         }
-        const selector = req.query.favoriteCuisine ? { favoriteCuisines: req.query.favoriteCuisine } : {}
+        const selector = req.query ? { ...req.query } : {}
+
         let users;
 
 
@@ -51,11 +52,11 @@ export const find = catchAsync(
 
 
         let owners;
-        if (selector.favoriteCuisines) {
-            logger.info(selector.favoriteCuisines)
+        if (selector.favoriteCuisine) {
+            logger.info(selector.favoriteCuisine)
             // select all users owns a restaurant with this cuisine
             owners = await RestaurantModel
-                .find({ cuisine: selector.favoriteCuisines })
+                .find({ cuisine: selector.favoriteCuisine })
                 .populate({ path: 'owner' })
         }
 
